@@ -23,7 +23,7 @@ class Auth extends CI_Controller
             } else {
                 $this->session->set_userdata('username', $auth->username);
                 $this->session->set_userdata('role_id', $auth->role_id);
-                $this->session->set_userdata('nama_team', $auth->nama_team);
+                $this->session->set_userdata('id_team', $auth->id_team);
 
                 switch ($auth->role_id) {
                     case 1:

@@ -1,9 +1,9 @@
 <!-- Carousel Section -->
-<?php if ($this->session->flashdata('flash')): ?>
+<?php if ($this->session->flashdata('flash')){ ?>
         <div class="row mt-3">
             <div class="col-md-6">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    Team <?= $this->session->flashdata('flash'); ?>.
+                    <?= $this->session->flashdata('flash'); ?>.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -11,7 +11,21 @@
             </div>
         </div>
     <?php
-    endif; ?>
+    } 
+    else if ($this->session->flashdata('fail')){ ?>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?= $this->session->flashdata('fail'); ?>.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    <?php
+   }
+?>
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
     <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
@@ -159,6 +173,10 @@
                     <option>PUBG</option>
                 </select>
             </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Kuota peserta</label>
+                <input type="number" id="member" name="member" min="1" max="32">
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
@@ -196,12 +214,19 @@
                     <td><?php echo $data['jenis_game'] ?></td>
                     <td>
                     <a class="btn btn-info" href="" 
-                        onclick="passInfoData('<?=$data['nama']?>', '<?=$data['deskripsi']?>', '<?=$data['jenis_game']?>')"data-bs-toggle="modal" data-bs-target="#infoModal">Info</a>
+                        onclick="passInfoData('<?=$data['nama']?>', '<?=$data['deskripsi']?>', '<?=$data['jenis_game']?>', '<?=$data['member']?>')"data-bs-toggle="modal" data-bs-target="#infoModal">Info</a>
 
                         <a class="btn btn-primary" id="update" href=""
                         onclick="passUpdateData(<?=$data['id_team']?>, '<?=$data['nama']?>', '<?=$data['deskripsi']?>', '<?=$data['jenis_game']?>')"data-bs-nama="<?= $data['nama']?>" data-bs-toggle="modal" data-bs-target="#updateModal">Update</a>
                         
-                        <a class="btn btn-danger" href="<?= base_url(); ?>controller_team/deleteTeam/<?=$data['id_team']?>"class="badge badge-danger  float-center p-3" onclick="return confirm('Apakah anda yakin menghapus data ini?');" ?>Delete</a>
+                        <a class="btn btn-primary" href="<?php base_url(); ?>controller_team/joinTeam/<?php echo $data['id_team'].'/'.$this->session->userdata('username')?>" onclick="">Join</a>
+
+                        <?php
+                        if($data['id_team'] == $this->session->userdata('id_team')){
+                            ?><a class="btn btn-danger" href="<?php base_url(); ?>controller_team/leftTeam/<?php echo $this->session->userdata('username')?>" onclick="">Leave</a>
+                        <?php
+                        }?>
+                        
                     </td>
                 </tr>
             </tbody>
@@ -261,13 +286,15 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title align-middle" id="exampleModalLabel">INFO TOURNAMENT</h1>
+                <h1 class="modal-title align-middle" id="exampleModalLabel">INFO TEAM</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
                 <p id="namaInfo"></p>
                 <p id="gameInfo"></p>
                 <p id="deskripsiInfo"></p>
+                <P id="memberInfo"></p>
+               
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -278,17 +305,19 @@
 
 <script type="text/javascript">
 
-        function passUpdateData(id, nama, deskripsi, jenis) {
+        function passUpdateData(id, nama, deskripsi, jenis, member) {
             $('#idUpdate').val(id);
             $('#namaUpdate').val(nama);
             $('#deskripsiUpdate').html(deskripsi);
             $('#gameUpdate').val(jenis);
+            $('#memberUpdate').html(member);
         }
 
-        function passInfoData(nama, deskripsi, game) {
-            $('#namaInfo').html("Nama Team: " + nama);
+        function passInfoData(nama, deskripsi, game, member) {
+            $('#namaInfo').html("Nama Turnamen: " + nama);
             $('#deskripsiInfo').html("Deskripsi: " + deskripsi);
             $('#gameInfo').html("Game yang dimainkan: " + game);
+            $('#memberInfo').html("Jumlah member: " + member);
         }
 
         function updateData(){
@@ -300,6 +329,16 @@
                 alert("Deskripsi belum diisi");
             }  
         }
+
+        // function joinTeam(id_team, username){
+        //    if(empty ($username)){
+        //         $username = set_userdata();
+        //     } else {
+        //         return "Terjadi kesalahan saat bergabung dengan tim. Silakan coba lagi.";
+        //     } else {
+        //         return "Pengguna sudah menjadi anggota tim."; 
+        //     }
+        // }
 </script>
 
 </html>

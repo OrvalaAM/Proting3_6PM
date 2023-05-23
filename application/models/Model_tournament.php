@@ -26,7 +26,10 @@ class Model_tournament extends CI_Model
     }
 
     public function getAllParticipant(){
-        $data = $this->db->get('tb_partisipasi_tournament');
+        $this->db->select('*');
+        $this->db->from('tb_partisipasi_tournament');
+        $this->db->join('tb_team', 'tb_partisipasi_tournament.id_team = tb_team.id_team');
+        $data = $this->db->get();
         return $data->result_array();
     }
 

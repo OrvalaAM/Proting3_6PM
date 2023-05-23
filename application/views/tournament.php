@@ -200,7 +200,7 @@
                         if($data['id_tour'] == $peserta['id_tour']){
                             ?> <li>
                                 <?php
-                                    echo $peserta['nama_team'];
+                                    echo $peserta['nama'];
                                     $jumlah++;
                                 ?>
                             </li><?php
