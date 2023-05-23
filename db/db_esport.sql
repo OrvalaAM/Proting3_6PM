@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2023 at 08:33 AM
+-- Generation Time: May 23, 2023 at 10:17 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -120,20 +120,23 @@ CREATE TABLE `tb_tournament` (
   `jenis_games` varchar(255) NOT NULL,
   `tempat` varchar(255) NOT NULL,
   `tanggal` date NOT NULL,
-  `kuota` int(11) NOT NULL
+  `kuota` int(11) NOT NULL,
+  `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_tournament`
 --
 
-INSERT INTO `tb_tournament` (`id_tour`, `nama`, `deskripsi`, `jenis_games`, `tempat`, `tanggal`, `kuota`) VALUES
-(3, 'kompeti', 'kompetisi amatir profeswional', 'Dota 2', 'Jakarta Tenggara', '2023-01-12', 12),
-(5, 'KOKOOKOOKO', 'koGITU ', 'MLBB', 'jbkJJJJJ', '2023-01-11', 32),
-(6, 'KOMOE', ' TURBESD ', 'PUBG', ' TELYU ', '2023-01-12', 0),
-(7, 'turnamen limitless', ' Turnamen tak terbatas tapi ', 'Dota 2', ' Bandung', '2023-05-12', 2),
-(8, 'Turnamen baru', 'Turnamen baru ', 'Dota 2', 'Bandung ', '2023-05-11', 10),
-(9, 'Turnamen', 'turnamen ', 'Dota 2', 'Bandung ', '2023-05-19', 20);
+INSERT INTO `tb_tournament` (`id_tour`, `nama`, `deskripsi`, `jenis_games`, `tempat`, `tanggal`, `kuota`, `status`) VALUES
+(3, 'kompeti', 'kompetisi amatir profeswional', 'Dota 2', 'Jakarta Tenggara', '2023-01-12', 12, 'approved'),
+(5, 'KOKOOKOOKO', 'koGITU ', 'MLBB', 'jbkJJJJJ', '2023-01-11', 32, 'approved'),
+(6, 'KOMOE', ' TURBESD ', 'PUBG', ' TELYU ', '2023-01-12', 12, 'approved'),
+(7, 'turnamen limitless', ' Turnamen tak terbatas tapi ', 'Dota 2', ' Bandung', '2023-05-12', 2, 'approved'),
+(8, 'Turnamen baru', 'Turnamen baru ', 'Dota 2', 'Bandung ', '2023-05-11', 10, 'approved'),
+(9, 'Turnamen', 'turnamen ', 'Dota 2', 'Bandung ', '2023-05-19', 20, 'rejected'),
+(10, 'test verifikasi', 'verif ', 'Dota 2', 'gh ', '2023-05-23', 12, 'approved'),
+(11, 'verif gagal', 'h ', 'Dota 2', 'j ', '2023-05-23', 12, 'rejected');
 
 -- --------------------------------------------------------
 
@@ -147,23 +150,22 @@ CREATE TABLE `tb_user` (
   `username` varchar(15) NOT NULL,
   `password` varchar(10) NOT NULL,
   `role_id` tinyint(1) NOT NULL,
-  `id_team` int(13) NOT NULL,
-  `nama_team` varchar(255) NOT NULL
+  `id_team` int(13) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_user`
 --
 
-INSERT INTO `tb_user` (`id`, `nama`, `username`, `password`, `role_id`, `id_team`, `nama_team`) VALUES
-(1, 'admin', 'admin', 'admin123', 1, 0, ''),
-(2, 'user', 'user', 'user123', 2, 0, 'test'),
-(4, 'user', 'adit', 'adit3', 2, 0, ''),
-(5, 'ggrr', 'h', 'h', 2, 0, ''),
-(6, 'zarvah', 'zarvah', '123', 2, 0, ''),
-(7, '3', 'joko', '3', 2, 0, ''),
-(8, 'john doe', 'johndoe', 'john123', 2, 0, ''),
-(9, 'tester', 'tester', 'tester123', 2, 0, '');
+INSERT INTO `tb_user` (`id`, `nama`, `username`, `password`, `role_id`, `id_team`) VALUES
+(1, 'admin', 'admin', 'admin123', 1, 0),
+(2, 'user', 'user', 'user123', 2, 0),
+(4, 'user', 'adit', 'adit3', 2, 0),
+(5, 'ggrr', 'h', 'h', 2, 0),
+(6, 'zarvah', 'zarvah', '123', 2, 0),
+(7, '3', 'joko', '3', 2, 0),
+(8, 'john doe', 'johndoe', 'john123', 2, 0),
+(9, 'tester', 'tester', 'tester123', 2, 0);
 
 --
 -- Indexes for dumped tables
@@ -225,7 +227,7 @@ ALTER TABLE `tb_team`
 -- AUTO_INCREMENT for table `tb_tournament`
 --
 ALTER TABLE `tb_tournament`
-  MODIFY `id_tour` int(23) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_tour` int(23) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tb_user`
