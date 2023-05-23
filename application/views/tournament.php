@@ -180,6 +180,7 @@
             <?php
                 $i = 1;
                 foreach ($tournament as $data):
+                    if($data['status'] == 'approved'){
             ?>
             <tbody>
                 <tr>
@@ -211,6 +212,7 @@
             </tbody>
             <?php
                 $i++;
+                    }
                 endforeach 
             ?>
         </table>

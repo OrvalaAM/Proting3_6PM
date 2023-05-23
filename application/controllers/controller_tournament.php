@@ -32,7 +32,8 @@ class controller_tournament extends CI_Controller{
                 "tempat" => $this->input->post('tempat', true),
                 "tanggal" => $this->input->post('tanggal', true),
                 "jenis_games" => $this->input->post('game', true),
-                "kuota" => $this->input->post('kuota', true) 
+                "kuota" => $this->input->post('kuota', true),
+                "status" => "processing"
             ];
             $cek = $this->Model_tournament->insertTournament($data);
             if($cek) $this->session->set_flashdata('flash', 'Tournament berhasil ditambah');

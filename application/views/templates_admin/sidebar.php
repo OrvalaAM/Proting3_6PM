@@ -30,6 +30,12 @@
                     <span>User</span></a>
             </li>
 
+            <li class="nav-item active">
+                <a class="nav-link" href="<?php echo base_url('admin/control_verifikasi_turnamen')?>">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Turnamen</span></a>
+            </li>
+
 
 
             <!-- Nav Item - Tables -->
