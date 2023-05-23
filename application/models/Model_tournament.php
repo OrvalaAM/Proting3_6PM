@@ -33,10 +33,10 @@ class Model_tournament extends CI_Model
         return $data->result_array();
     }
 
-    public function checkParticipant($id_tour, $nama_team)
+    public function checkParticipant($id_tour, $id_team)
     {
         $this->db->where('id_tour', $id_tour);
-        $this->db->where('nama_team', $nama_team);
+        $this->db->where('id_team', $id_team);
         $data = $this->db->get('tb_partisipasi_tournament');
         return $data->num_rows();
     }

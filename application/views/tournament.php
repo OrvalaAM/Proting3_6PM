@@ -191,7 +191,7 @@
                         '<?=$data['tempat']?>', '<?=$data['tanggal']?>', '<?=$data['jenis_games']?>')"
                         data-bs-toggle="modal" data-bs-target="#infoModal">Info</a>
 
-                        <a class="btn btn-primary" href="<?php base_url(); ?>controller_tournament/gabungTournament/<?php echo $data['id_tour'].'/'.$this->session->userdata('nama_team')?>" onclick="">Join</a>
+                        <a class="btn btn-primary" href="<?php base_url(); ?>controller_tournament/gabungTournament/<?php echo $data['id_tour'].'/'.$this->session->userdata('id_team')?>" onclick="">Join</a>
 
                         
                     </td>

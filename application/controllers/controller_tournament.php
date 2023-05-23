@@ -64,11 +64,11 @@ class controller_tournament extends CI_Controller{
 
     public function gabungTournament(){
         $idTournament = $this->uri->segment(3);
-        $namaTeam = $this->uri->segment(4);
-        $validasi = $this->Model_tournament->checkParticipant($idTournament, $namaTeam);
+        $idTeam = $this->uri->segment(4);
+        $validasi = $this->Model_tournament->checkParticipant($idTournament, $idTeam);
         $jumlah_pendaftar = $this->Model_tournament->countParticipant($idTournament);
         $kuota = $this->Model_tournament->getQuota($idTournament);
-        if($namaTeam == null){
+        if($idTeam == 0){
             $this->session->set_flashdata('fail', 'Anda belum tergabung dengan tim manapun');
             redirect('controller_tournament');
         }
@@ -84,7 +84,7 @@ class controller_tournament extends CI_Controller{
         else{
             $data = [
                 "id_tour" => $idTournament,
-                "nama_team" => $namaTeam,
+                "id_team" => $idTeam,
             ];
             $cek = $this->Model_tournament->joinTournament($data);
             if($cek) $this->session->set_flashdata('flash', 'Pendaftaran berhasil');
