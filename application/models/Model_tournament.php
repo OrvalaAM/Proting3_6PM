@@ -52,10 +52,19 @@ class Model_tournament extends CI_Model
         return $data->num_rows();
     }
 
-    public function getQuota($id){
+    public function getTournamentById($id){
         $this->db->where('id_tour', $id);
         $data = $this->db->get('tb_tournament');
         return $data->row();
+    }
+
+    public function getParticipatedTournamentByIdTeam($id){
+        $this->db->select('tb_tournament.nama');
+        $this->db->from('tb_partisipasi_tournament');
+        $this->db->join('tb_tournament', 'tb_partisipasi_tournament.id_tour = tb_tournament.id_tour');
+        $this->db->where('tb_partisipasi_tournament.id_team', $id);
+        $data = $this->db->get();
+        return $data->result_array();
     }
     
 }

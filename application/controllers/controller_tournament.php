@@ -68,7 +68,7 @@ class controller_tournament extends CI_Controller{
         $idTeam = $this->uri->segment(4);
         $validasi = $this->Model_tournament->checkParticipant($idTournament, $idTeam);
         $jumlah_pendaftar = $this->Model_tournament->countParticipant($idTournament);
-        $kuota = $this->Model_tournament->getQuota($idTournament);
+        $kuota = $this->Model_tournament->getTournamentById($idTournament);
         if($idTeam == 0){
             $this->session->set_flashdata('fail', 'Anda belum tergabung dengan tim manapun');
             redirect('controller_tournament');

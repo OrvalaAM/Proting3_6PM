@@ -3,12 +3,19 @@ class Controller_team extends CI_Controller{
     public function __construct(){
         parent::__construct();
         $this ->load->model('Model_team', '', TRUE);
+        $this ->load->model('Model_tournament', '', TRUE);
         $this ->load->library('session');
         $this ->load->library('form_validation');
     }
 
     public function index(){
-        $data['team']=$this->Model_team->getAllTeam();
+        $data['team'] = $this->Model_team->getAllTeam();
+        $data['user_has_team'] = $this->Model_team->getAllUserHasTeam();
+        if ($this->session->userdata('id_team') != 0){
+            $data['your_team'] = $this->Model_team->getTeamById($this->session->userdata('id_team'));
+            $data['list_member'] = $this->Model_team->getListTeamMember($this->session->userdata('id_team'));
+            $data['participated_tournament'] = $this->Model_tournament->getParticipatedTournamentByIdTeam($this->session->userdata('id_team'));
+        }
         $this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
 		$this->load->view('team',$data);
@@ -54,7 +61,7 @@ class Controller_team extends CI_Controller{
         $id_team = $this->uri->segment(3);
         $username = $this->uri->segment(4);
         $jumlah_pendaftar = $this->Model_team->countMember($id_team);
-        $kuota = $this->Model_team->getQuota($id_team);
+        $kuota = $this->Model_team->getTeamById($id_team);
         if($username == null){
             $this->session->set_flashdata('fail', 'Anda belum tergabung dengan tim manapun');
             redirect('controller_team');

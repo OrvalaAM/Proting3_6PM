@@ -15,7 +15,7 @@ class Model_team extends CI_Model{
         return $this->db->update('tb_team', $data);
     }
     
-    public function joinTeam($data, $username){  
+    public function joinTeam($data, $username){
         $this->db->where('username',$username);
         return $this->db->update('tb_user',$data);
     }
@@ -26,10 +26,22 @@ class Model_team extends CI_Model{
         return $data->num_rows();
     }
 
-    public function getQuota($id){
+    public function getTeamById($id){
         $this->db->where('id_team', $id);
         $data = $this->db->get('tb_team');
         return $data->row();
+    }
+
+    public function getListTeamMember($id){
+        $this->db->where('id_team', $id);
+        $data = $this->db->get('tb_user');
+        return $data->result_array();
+    }
+
+    public function getAllUserHasTeam(){
+        $this->db->where('id_team != ', 0);
+        $data = $this->db->get('tb_user');
+        return $data->result_array();
     }
 }
 ?>

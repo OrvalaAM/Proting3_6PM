@@ -64,91 +64,49 @@
 </div>
 
 <!-- End Carousel Section -->
-
-<!-- Active Team Section -->
-
-<section class="container-fluid mt-4">
+<?php if ($this->session->userdata('id_team') != 0){ ?>
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="card mb-3" style="">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="https://pbs.twimg.com/profile_images/1562137648570851328/eg1BT8yn_400x400.jpg"
-                                class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Available Team</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural
-                                    lead-in to additional content. This content is a little bit longer.</p>
-                                <a href="" class="btn btn-primary">Detail</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card mb-3" style="">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="https://pbs.twimg.com/profile_images/1562137648570851328/eg1BT8yn_400x400.jpg"
-                                class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Available Team</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural
-                                    lead-in to additional content. This content is a little bit longer.</p>
-                                <a href="" class="btn btn-primary">Detail</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="row text-center">
+            <div class="col py-5">
+                <h2>Informasi Team</h2>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="card mb-3" style="">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="https://pbs.twimg.com/profile_images/1562137648570851328/eg1BT8yn_400x400.jpg"
-                                class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Available Team</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural
-                                    lead-in to additional content. This content is a little bit longer.</p>
-                                <a href="" class="btn btn-primary">Detail</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card mb-3" style="">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="https://pbs.twimg.com/profile_images/1562137648570851328/eg1BT8yn_400x400.jpg"
-                                class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Available Team</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural
-                                    lead-in to additional content. This content is a little bit longer.</p>
-                                <a href="" class="btn btn-primary">Detail</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+        <p><?php echo $user_has_team[0]['id_team'] ?></p>
+        <p>Nama Team : <?php echo $your_team->nama?></p>
+        <p>Deskripsi : <?php echo $your_team->deskripsi?></p>
+        <p>Anggota : </p>
+        <?php
+        foreach($list_member as $member){
+        ?>
+            <li>
+            <?php
+            echo $member['username'];
+            ?>
+            </li>
+        <?php
+        }
+        ?>
 
-<!-- End Active Team Section -->
+        <br>
+        <p>Turnamen yang sedang diikuti: </p>
+        <?php
+        foreach($participated_tournament as $partisipasi){
+        ?>
+            <li>
+            <?php
+            echo $partisipasi['nama'];
+            ?>
+            </li>
+        <?php
+        }
+        ?>
+    </div>
+    <?php
+    } 
+    
+?>
+<br>
+
 
 <!-- Create Team Section -->
 <section class="container-fluid" style="background-color: rgba(8, 8, 8, 0.636);">
@@ -198,12 +156,19 @@
                 <th scope="col">Nama Team</th>
                 <th scope="col">Deskripsi</th>
                 <th scope="col">Jenis Game</th>
+                <th scope="col">Kuota tersedia</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
         <?php
                 $i = 1;
                 foreach ($team as $data):
+                    $joinedMember = 0;
+                    for($i = 0; $i < sizeof($user_has_team); $i++){
+                        if($user_has_team[$i]['id_team'] == $data['id_team']){
+                            $joinedMember++;
+                        }
+                    }
             ?>
             <tbody>
                 <tr>
@@ -212,6 +177,7 @@
                     <td><?php echo $data['nama'] ?></td>
                     <td><?php echo $data['deskripsi'] ?></td>
                     <td><?php echo $data['jenis_game'] ?></td>
+                    <td><?php echo $joinedMember.'/'.$data['member'] ?></td>
                     <td>
                     <a class="btn btn-info" href="" 
                         onclick="passInfoData('<?=$data['nama']?>', '<?=$data['deskripsi']?>', '<?=$data['jenis_game']?>', '<?=$data['member']?>')"data-bs-toggle="modal" data-bs-target="#infoModal">Info</a>
